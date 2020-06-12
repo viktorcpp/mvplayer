@@ -1,0 +1,33 @@
+
+html, body
+{
+    display:     block;
+    min-height:  100%;
+    margin:      0;
+    padding:     0;
+    font-family: 'RobotoCond';
+    font-weight: normal;
+    font-size:   14px;
+    line-height: 120%;
+}
+
+body
+{
+    min-height: 100vh;
+    max-width:  100%;
+}
+
+.page
+{
+    width:      100%;
+    min-height: 100vh;
+    padding:    20px 0 50px;
+    box-sizing: border-box;
+
+} // .page
+
+.page__main
+{
+    width: 100%;
+
+} // .page__main

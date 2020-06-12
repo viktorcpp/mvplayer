@@ -1,0 +1,111 @@
+{% extends "partials/base-page-template.twig" %}
+{% block content %}
+    <div class="page__main">
+        <section class="content">
+            <div class="content__main">
+
+                <div class="preview-fonts">
+                    <div style="font-family:'RobotoCond'">
+                        <div class="preview-font">
+                            <div style="font-weight:normal">Roboto Cond - Regular - The quick brown fox jumps over the lazy dog - 12345#$%^&@#</div>
+                        </div>
+                        <div class="preview-font">
+                            <div style="font-weight:900">Roboto Cond - Bold - The quick brown fox jumps over the lazy dog - 12345#$%^&@#</div>
+                        </div>
+                        <div class="preview-font">
+                            <div style="font-weight:normal;font-style:italic">Roboto Cond - Regular - The quick brown fox jumps over the lazy dog - 12345#$%^&@#</div>
+                        </div>
+                        <div class="preview-font">
+                            <div style="font-weight:900;font-style:italic">Roboto Cond - Bold - The quick brown fox jumps over the lazy dog - 12345#$%^&@#</div>
+                        </div>
+                    </div>
+                </div> <!-- /preview-fonts -->
+                
+                <div class="preview-svg-icons">
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-fullscreen-enter"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-fullscreen-exit"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-pause"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-play"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-previous"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-settings"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-sound-on"></use>
+                        </svg>
+                    </div>
+                    <div class="preview-svg-ico">
+                        <svg preserveAspectRatio="xMidYMid meet">
+                            <use xlink:href="/images/sprite.svg#ico-player-sound-off"></use>
+                        </svg>
+                    </div>
+                </div> <!-- /preview-svg-icons -->
+
+            </div><!-- /content__main -->
+        </section>
+    </div> <!-- /page__main -->
+    <style type="text/css">
+        .content__main
+        {
+            width:   1280px;
+            margin:  0 auto;
+            padding: 30px;
+        }
+        .preview-svg-icons
+        {
+            margin: 0 0 10px;
+        }
+        .preview-svg-ico
+        {
+            background-color: silver;
+            width:            50px;
+            height:           50px;
+            fill:             #000;
+            display:          inline-block;
+            margin:           0 5px 5px 0;
+        }
+        .preview-svg-ico svg
+        {
+            width:  100%;
+            height: 100%
+        }
+        .preview-fonts
+        {
+            margin: 0 0 30px;
+        }
+        .preview-fonts > div
+        {
+            margin: 0 0 30px;
+        }
+        .preview-font
+        {
+            font-size:   14px;
+            line-height: 26px;
+            background:  none #ccc;
+            margin:      0 0 4px;
+        }
+    </style>
+{% endblock %}
