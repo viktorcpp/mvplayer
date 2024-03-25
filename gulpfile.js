@@ -1,7 +1,8 @@
 
+const fsio        = require('fs');
 const gulp        = require('gulp');
 const del         = require('del');
-const gulp_sass   = require('gulp-sass');
+const gulp_sass   = require('gulp-sass')(require('sass'));
 const sass_glob   = require('gulp-sass-glob');
 const {series}    = require('gulp');
 const {watch}     = require('gulp');
@@ -55,7 +56,13 @@ function SetBuildType( build_type )
     PATHs.DEST_FONTS   = PATHs.DEST_FONTS  .replace( 'build/', `${build_type}/` );
     PATHs.DEST_FILES   = PATHs.DEST_FILES  .replace( 'build/', `${build_type}/` );
     PATHs.DEST_SCRIPTS = PATHs.DEST_SCRIPTS.replace( 'build/', `${build_type}/` );
-}
+    
+    if( !fsio.existsSync(`${build_type}/`) )
+    {
+        fsio.mkdirSync(`${build_type}/`);
+    }
+    
+} // SetBuildType
 
 
 function build_html()
@@ -79,7 +86,7 @@ function build_files()
     return gulp.src( [ `${PATHs.SRC_FILES}*` ] )
         .pipe( gulp.dest( PATHs.DEST_FILES ) );
     
-} // build_images
+} // build_files
 
 
 function build_fonts()
@@ -87,11 +94,14 @@ function build_fonts()
     return gulp.src( [ `${PATHs.SRC_FONTS}*` ] )
         .pipe( gulp.dest( PATHs.DEST_FONTS ) );
     
-} // build_images
+} // build_fonts
 
 
 function build_images()
 {
+    gulp.src( [ `${PATHs.SRC_IMAGES}*.svg` ] )
+        .pipe( gulp.dest( PATHs.DEST_IMAGES ) );
+    
     return gulp.src( [ `${PATHs.SRC_IMAGES}*` ] )
         .pipe( gulp.dest( PATHs.DEST_IMAGES ) );
     
@@ -100,11 +110,6 @@ function build_images()
 
 function build_js()
 {
-    //del( [ `${PATHs.DEST_SCRIPTS}*.js`, `!${PATHs.DEST_SCRIPTS}` ] );
-
-    gulp.src( [ `${PATHs.SRC_SCRIPTS}svgxuse.min.js` ] )
-        .pipe( gulp.dest( PATHs.DEST_SCRIPTS ) );
-    
     return browserify({ entries: [ `${PATHs.SRC_SCRIPTS}main.js` ] })
         .transform(babelify.configure({ presets : ["@babel/preset-env"] }))
         .bundle()
@@ -134,33 +139,35 @@ function build_sprites_png()
 
 function build_sprites_svg()
 {
-    //*
     return gulp.src( `${PATHs.SRC_SPRITES_SVG}*.svg` )
         .pipe(svg_sprite({
                 mode:
                 {
                     stack:
                     {
-                        sprite: "../sprite.svg"  //sprite file name
+                        sprite: "../sprite.svg"
                     },
                     //view: true,
                     example: true
                 }
             }
         ))
-        .pipe( gulp.dest( PATHs.DEST_IMAGES ) );//*/
+        .pipe( gulp.dest( PATHs.DEST_IMAGES ) );
     
-} // build_sprites_svg
+}
 
 
 function build_sass()
 {
     del( [ `${PATHs.DEST_CSS}*.css`, `!${PATHs.DEST_CSS}` ] );
 
+    gulp.src( [ `${PATHs.SRC_SCSS}*.css` ] )
+        .pipe( gulp.dest( PATHs.DEST_CSS ) );
+    
     return gulp.src( [ `${PATHs.SRC_SCSS}main.scss` ] )
-      .pipe( sass_glob() )
-      .pipe( gulp_sass() )
-      .pipe( gulp.dest( PATHs.DEST_CSS ) );
+        .pipe( sass_glob() )
+        .pipe( gulp_sass() )
+        .pipe( gulp.dest( PATHs.DEST_CSS ) );
     
 } // build_sass
 
@@ -169,11 +176,8 @@ function gulp_server()
 {
     gulp.src( `./${PATHs.DEST_HTML}` )
         .pipe(webserver({
-            livereload: false,
-            //directoryListing: true,
+            livereload: true,
             open: true,
-            //fallback: `index.html`
-            //path: `/${PATHs.DEST_HTML}index.html`
         }));
 
 } // gulp_server
@@ -202,7 +206,7 @@ function build_watch()
 
     //gulp_server();
     
-} // build_watch_debug
+} // build_watch
 
 
 function build_watch_debug()
